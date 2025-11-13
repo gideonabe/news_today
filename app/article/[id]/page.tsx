@@ -147,8 +147,8 @@ const ArticlePage = () => {
 
   if (error) return (
     <div className="flex flex-col justify-center items-center h-screen w-full">
-      <p className="text-red-500 mb-4 font-semibold text-lg text-center">Oops! Something went wrong while fetching the articles. Try the previous page</p>
-      <p className="text-gray-600 mb-6 text-center">{error}</p>
+      <p className="mb-4 font-semibold text-lg md:text-3xl text-center">Oops! Something went wrong while fetching the articles. Refresh or go back to Previous page</p>
+      {/* <p className="text-gray-600 mb-6 text-center">{error}</p> */}
     </div>
   )
 

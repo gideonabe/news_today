@@ -22,7 +22,7 @@ const Content = () => {
 
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -53,7 +53,9 @@ const Content = () => {
   // Fetch articles whenever category or search changes
   useEffect(() => {
     async function fetchArticles() {
-      setLoading(true);
+
+      // setLoading(true); // This is now redundant since we start with true
+
       setError(null);
       try {
         let endpoint = "";
@@ -194,7 +196,7 @@ const Content = () => {
 
       {!loading && error && (
         <div className="text-center py-10">
-          <p className='text-3xl mb-4 '>Don't worry, it's just a little something, <br /> Kindly try again</p>
+          <p className='text-xl md:text-3xl mb-4 '>Don't worry, it's just a little something, <br /> Kindly try again</p>
           {/* <p className="text-red-500 mb-4">{error}</p> */}
           <button
             onClick={() => {
