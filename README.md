@@ -1,4 +1,4 @@
-# ![NewsToday Banner](https://newstoday-nu.vercel.app/newstoday.png)
+# ![NewsToday Banner](https://newstoday-nu.vercel.app/newsdesktop.png)
 
 # NewsToday
 
@@ -46,21 +46,23 @@ You can check the live demo here: [https://newstoday-nu.vercel.app/](https://new
 ## Screenshots
 
 ### Desktop
-![Desktop Screenshot](https://newstoday-nu.vercel.app/newstoday.png)
+![Desktop Screenshot](https://newstoday-nu.vercel.app/newsdesktop.png)
 
 ### Tablet/iPad
-![Tablet Screenshot](https://your-image-link.com/tablet.png)
+![Tablet Screenshot](https://newstoday-nu.vercel.app/newstablet.png)
 
 ### Mobile
-![Mobile Screenshot](https://your-image-link.com/mobile.png)
+![Mobile Screenshot](https://newstoday-nu.vercel.app/newsmobile.jpeg)
 
 ---
 
 ## Technologies Used
 
-- [Next.js 13](https://nextjs.org/)
-- [React 18](https://reactjs.org/)
+- [Next.js 16](https://nextjs.org/)
+- [React 19](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [Redux](https://redux.js.org/)
 - [Lucide Icons](https://lucide.dev/)
 - [Vercel](https://vercel.com/) (deployment)
 
@@ -70,7 +72,6 @@ You can check the live demo here: [https://newstoday-nu.vercel.app/](https://new
 
 1. Clone the repository:
 
-```bash
 git clone https://github.com/your-username/newstoday.git
 
 
@@ -93,48 +94,33 @@ yarn dev
 5. Open http://localhost:3000 in your browser.
 
 
-Usage
+## Usage
 
-Toggle Theme: Click the Moon/Sun icon to switch between light and dark mode.
+- Toggle Theme: Click the Moon/Sun icon to switch between light and dark mode.
 
-Search: Use the search input to filter news (currently static placeholder).
+- Search: Use the search input to filter news (currently static placeholder).
 
-Navigation: Click menu items to navigate categories (can be linked to pages or APIs).
+- Navigation: Click menu items to navigate categories (can be linked to pages or APIs).
 
-Hamburger Menu: On mobile and tablet, click the hamburger to open the navigation menu overlay.
-
-
-## Folder Structure
-newstoday/
-│
-├─ app/
-│   ├─ page.tsx
-│   ├─ layout.tsx
-│   └─ components/
-│       └─ Navbar.tsx
-├─ public/
-│   └─ images/
-├─ styles/
-│   └─ globals.css
-├─ package.json
-└─ README.md
+- Hamburger Menu: On mobile and tablet, click the hamburger to open the navigation menu overlay.
 
 
-Contributing
+
+## Contributing
 
 Contributions are welcome!
 
-Fork the repository
+- Fork the repository
 
-Create a new branch: git checkout -b feature-name
+- Create a new branch: git checkout -b feature-name
 
-Make your changes and commit: git commit -m "Add new feature"
+- Make your changes and commit: git commit -m "Add new feature"
 
-Push to your branch: git push origin feature-name
+- Push to your branch: git push origin feature-name
 
-Open a Pull Request
+- Open a Pull Request
 
 
-License
+## License
 
 This project is licensed under the MIT License.

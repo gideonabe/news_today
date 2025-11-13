@@ -1,4 +1,3 @@
-// components/ArticlesSkeleton.tsx
 import { Skeleton } from "./ui/skeleton";
 
 const ArticlesSkeleton = () => {
