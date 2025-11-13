@@ -1,19 +1,53 @@
-import React from 'react'
-import { Bell, CalendarRange, Moon, Search } from "lucide-react";
+"use client";
 
-const Navbar2 = () => {
+import React, { useState, useEffect } from "react";
+import {
+  Bell,
+  CalendarRange,
+  Moon,
+  Sun,
+  Search,
+  Menu,
+  X,
+} from "lucide-react";
+import Link from "next/link";
+
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [theme, setTheme] = useState("light");
+
+  // Load theme from localStorage
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme") || "light";
+    setTheme(storedTheme);
+    document.body.classList.toggle("dark", storedTheme === "dark");
+  }, []);
+
+  // Toggle light/dark theme
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.body.classList.toggle("dark", newTheme === "dark");
+  };
+
   return (
-    <nav className='pb-3 mt-3 border-b border-gray-400'>
-      <div className='flex justify-between max-w-[95%] mx-auto'>
-        <div className='flex gap-18'>
-          {/* Logo */}
-          <div className='flex items-center gap-0.1'>
-            <CalendarRange color='blue'/>
-            <h1 className='font-semibold text-2xl'>NewsToday</h1>
-          </div>
+    <nav className="pb-3 pt-3 border-b border-gray-400 dark:border-gray-600 relative">
+      <div className="flex justify-between items-center max-w-[95%] mx-auto">
 
-          {/* Nav menus */}
-          <ul className='flex items-center gap-6 font-medium'>
+        {/* Left: Logo + Nav (desktop only) */}
+        <div className="flex items-center gap-14">
+          <Link href="/">
+            <div className="flex items-center gap-1">
+              <CalendarRange color="blue" />
+              <h1 className="font-semibold text-xl md:text-2xl dark:text-gray-100">
+                NewsToday
+              </h1>
+            </div>
+          </Link>
+
+          <ul className="hidden md:flex items-center gap-6 font-medium dark:text-gray-200">
             <li>Top Stories</li>
             <li>World</li>
             <li>Politics</li>
@@ -23,27 +57,93 @@ const Navbar2 = () => {
           </ul>
         </div>
 
-        <div className='flex items-center gap-4'>
-          {/* Search bar */}
-          <div className='relative'>
-            <Search className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-600'/>
-            <input type="text" className='bg-gray-200 py-2 pl-10 rounded-full focus:outline-none' placeholder='Search'/>
+        {/* Right: Actions */}
+        <div className="flex items-center gap-3 md:gap-4 relative">
+
+          {/* Desktop Search Bar */}
+          <div className="hidden md:block relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300" />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="bg-gray-200 dark:bg-gray-700 dark:text-gray-100 py-2 pl-10 rounded-full focus:outline-none"
+            />
           </div>
 
+          {/* Mobile Search Icon */}
+          {/* <button
+            className="p-2 text-gray-700 dark:text-gray-200 md:hidden"
+            onClick={() => {
+              setSearchOpen(!searchOpen);
+              setMenuOpen(false);
+            }}
+          >
+            <Search />
+          </button> */}
 
-          {/* notification */}
-          <Bell />
+          {/* Theme Toggle */}
+          {/* <button
+            onClick={toggleTheme}
+            className="p-2 text-gray-700 dark:text-gray-200 cursor-pointer"
+          >
+            {theme === "light" ? <Moon /> : <Sun />}
+          </button> */}
+
+          {/* Notification */}
+          <Bell className="cursor-pointer text-gray-700 dark:text-gray-200" />
 
           {/* Profile Avatar */}
-          <a href="#">
-            <img src="https://images.unsplash.com/photo-1740252117013-4fb21771e7ca?w=500&auto=format&fit=crop&q=60" alt="" className='rounded-full w-7 h-7'/>
+          <a href="#" className="cursor-pointer">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdmvH7dnlgLKKhHQGzku44nvGWNSwsA1xuL3_1O7bwiJfZ1uh8fIa5kLnFbnAWP5emjo4&usqp=CAU"
+              alt="Profile Avatar"
+              className="rounded-full w-10 h-10 object-cover"
+            />
           </a>
 
+          {/* Hamburger (mobile only) */}
+          <button
+            className="p-2 text-gray-700 dark:text-gray-200 md:hidden"
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+              setSearchOpen(false);
+            }}
+          >
+            {menuOpen ? <X /> : <Menu />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Search Dropdown */}
+      {searchOpen && (
+        <div className="absolute right-4 left-4 md:hidden mt-3 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300" />
+            <input
+              type="text"
+              placeholder="Search news..."
+              className="w-full bg-gray-200 dark:bg-gray-700 dark:text-gray-100 py-2 pl-10 rounded-full focus:outline-none"
+              autoFocus
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Nav Menu */}
+      {menuOpen && (
+        <div className="md:hidden mt-3 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+          <ul className="flex flex-col font-medium text-center divide-y divide-gray-300 dark:divide-gray-700 dark:text-gray-100">
+            <li className="py-3">Top Stories</li>
+            <li className="py-3">World</li>
+            <li className="py-3">Politics</li>
+            <li className="py-3">Business</li>
+            <li className="py-3">Tech</li>
+            <li className="py-3">Culture</li>
+          </ul>
+        </div>
+      )}
     </nav>
-  )
+  );
+};
 
-}
-
-export default Navbar2
+export default Navbar;

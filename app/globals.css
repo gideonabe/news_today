@@ -1,13 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
 :root {
-  --font-inter: var(--font-inter);
+  --font-libre: var(--font-libre);
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: #f6f7f8;
+  --foreground: #000;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -82,17 +82,22 @@
 /* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #fff;
   }
 } */
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 body {
-  font-family: var(--font-inter)
+  font-family: var(--font-libre), serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  /* font-family: "Playfair Display", serif; */
+  background: var(--background);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: #000;
+  --foreground: #F6F7F8;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);

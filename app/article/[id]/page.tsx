@@ -14,41 +14,38 @@ type Article = {
   content: string;
   image: string;
   author: string;
-  description: string,
+  description: string;
   date: string;
   url: string;
 };
 
 const ArticlePage = () => {
-  const params = useParams(); // dynamic route param
-  const searchParams = useSearchParams(); 
+  const params = useParams();
+  const searchParams = useSearchParams();
   const category = searchParams?.get("category") || "all";
 
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const [related, setRelated] = useState<Article[]>([]);
-
 
   useEffect(() => {
     async function fetchArticle() {
       if (!params?.id) return;
-  
+
       setLoading(true);
       try {
         const categoryParam = category.toLowerCase();
         const endpoint = `/api/news?category=${encodeURIComponent(categoryParam)}`;
         const res = await fetch(endpoint);
         const data = await res.json();
-  
+
         const decodedUrl = decodeURIComponent(Array.isArray(params.id) ? params.id[0] : params.id);
         const found = (data || []).find((a: any) => a.url === decodedUrl);
-  
+
         if (!found) {
           notFound();
         } else {
-          // Set the main article
           setArticle({
             id: encodeURIComponent(found.url),
             title: found.title,
@@ -60,8 +57,7 @@ const ArticlePage = () => {
             date: found.publishedAt,
             url: found.url,
           });
-  
-          // Find up to 2 related articles (same category, not the same URL)
+
           const relatedArticles = data
             .filter((a: any) => a.url !== found.url)
             .slice(0, 2)
@@ -76,7 +72,7 @@ const ArticlePage = () => {
               description: item.description,
               content: item.content,
             }));
-  
+
           setRelated(relatedArticles);
         }
       } catch (err: any) {
@@ -85,41 +81,112 @@ const ArticlePage = () => {
         setLoading(false);
       }
     }
-  
+
     fetchArticle();
   }, [params?.id, category]);
-  
 
+  // Full skeleton layout
   if (loading)
     return (
-      <div className="max-w-4xl mx-auto mt-10">
-        <Skeleton className="h-96 w-full mb-4" />
-        <Skeleton className="h-8 w-3/4 mb-2" />
-        <Skeleton className="h-4 w-full mb-1" />
-        <Skeleton className="h-4 w-full mb-1" />
-        <Skeleton className="h-4 w-5/6" />
-      </div>
+      <section>
+        <Navbar2 />
+        <div className="max-w-[95%] md:max-w-[75%] mx-auto mt-4 md:mt-8 space-y-6">
+
+          {/* Breadcrumb */}
+          <Skeleton className="h-4 w-1/4 md:w-1/6" />
+
+          {/* Title & Author */}
+          <Skeleton className="h-10 md:h-16 w-3/4 md:w-1/2" />
+          <Skeleton className="h-4 w-1/3 md:w-1/4" />
+
+          {/* Main Image */}
+          <Skeleton className="h-80 md:h-112 w-full rounded-lg" />
+
+          {/* Content */}
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <Skeleton className="h-4 w-4/6" />
+            <Skeleton className="h-4 w-3/6" />
+          </div>
+
+          {/* Features */}
+          <div className="flex justify-around mt-4">
+            {[...Array(4)].map((_, idx) => (
+              <Skeleton key={idx} className="h-6 w-16 md:w-20 rounded" />
+            ))}
+          </div>
+
+          {/* Related Articles */}
+          <div className="mt-10">
+            <Skeleton className="h-6 md:h-8 w-1/3 mb-4" />
+            <div className="grid md:grid-cols-2 gap-4">
+              {[...Array(2)].map((_, idx) => (
+                <div key={idx} className="flex gap-4">
+                  <div className="flex-1 flex flex-col space-y-2">
+                    <Skeleton className="h-3 w-1/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-3 w-5/6" />
+                    <Skeleton className="h-4 w-1/3" />
+                  </div>
+                  <Skeleton className="w-[35%] h-24 md:h-32 rounded-lg" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Comments */}
+          <div className="mt-10 space-y-4">
+            <Skeleton className="h-6 md:h-8 w-1/4" />
+            {[...Array(2)].map((_, idx) => (
+              <div key={idx} className="flex gap-2 items-start">
+                <Skeleton className="w-12 h-12 rounded-full" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-4 w-1/3" />
+                  <Skeleton className="h-3 w-full" />
+                  <Skeleton className="h-3 w-5/6" />
+                </div>
+              </div>
+            ))}
+
+            {/* Comment input */}
+            <div className="flex gap-3 items-start">
+              <Skeleton className="w-12 h-12 rounded-full" />
+              <Skeleton className="h-24 w-full rounded-lg" />
+            </div>
+            <Skeleton className="h-10 w-32 rounded-lg self-end" />
+          </div>
+
+        </div>
+      </section>
     );
 
   if (error) return <p className="text-red-500 text-center mt-10">{error}</p>;
-
   if (!article) return null;
 
+  // Actual article page rendering
   return (
     <section>
       <Navbar2 />
-      <div className="max-w-[75%] mx-auto">
+      <div className="max-w-[95%] md:max-w-[75%] mx-auto">
 
         {/* Breadcrumb */}
-        <nav className="text-lg text-gray-500 mb-4 mt-8">
-          <span>
-            <Link href="/">News</Link> / {category.charAt(0).toUpperCase() + category.slice(1)}
+        <nav className="text-lg text-gray-500 dark:text-gray-200 mb-4 mt-4 md:mt-8">
+          <span className="text-sm md:text-base">
+            <Link href="/">News</Link> /{" "}
+            <Link
+              href={`/?category=${encodeURIComponent(category.toLowerCase())}`}
+            >
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </Link>
           </span>
         </nav>
 
-        <div className="max-w-full mx-auto mt-6 space-y-6">
-          <h1 className="text-5xl font-bold w-[75%]">{article.title}</h1>
-          <p className=" text-gray-500 font-sans">By {article.author} &middot; Published on {new Date(article.date).toLocaleDateString("en-US", {
+
+        <div className="max-w-full mx-auto mt-2 md:mt-6 space-y-4 md:space-y-6 dark:text-gray-100">
+          <h1 className="text-2xl  md:text-5xl font-semibold md:font-bold md:w-[80%] md:leading-14">{article.title}</h1>
+          <p className=" text-gray-500 dark:text-gray-400 font-sans">By {article.author} &middot; Published on {new Date(article.date).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
@@ -128,13 +195,13 @@ const ArticlePage = () => {
           <img
             src={article.image}
             alt={article.title}
-            className="w-full h-110 object-cover rounded-lg"
+            className="w-full h-90 md:h-110 object-cover rounded-lg"
           />
-          <p className="text-lg">{article.content}</p>
+          <p className="text-base md:text-lg">{article.content}</p>
         </div>
         
         {/* Features */}
-        <div className="flex flex-col gap-6 mt-8 w-full">
+        <div className="flex flex-col gap-4 md:gap-6 mt-4 md:mt-8 w-full dark:text-gray-200">
           <div className="w-full h-px bg-gray-400"></div>
           <div className="flex justify-center items-center gap-4 md:gap-10 text-sm md:text-base w-full">
             <p className="flex gap-2 items-center">
@@ -159,18 +226,18 @@ const ArticlePage = () => {
 
         {/* Related Articles */}
         {related.length > 0 && (
-          <div className="mt-10">
-            <h1 className="text-3xl font-semibold mb-6">Related Articles</h1>
-            <div className="grid gap-8 md:grid-cols-2">
+          <div className="mt-10 dark:text-gray-100">
+            <h1 className="text-xl md:text-3xl font-semibold mb-2 md:mb-6">Related Articles</h1>
+            <div className="grid gap-4 md:gap-8 md:grid-cols-2">
               {related.map((r) => (
                 <div
                   key={r.id}
-                  className="flex overflow-hidden items-start"
+                  className="flex gap-4 overflow-hidden items-start"
                 >
                   <div className="flex flex-1 flex-col justify-between  space-y-1">
-                    <h3 className="font-medium text-blue">{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
-                    <h2 className="text-lg font-semibold line-clamp-2">{r.title}</h2>
-                    <p className="text-gray-600 text-sm line-clamp-2 mt-1">{r.summary}</p>
+                    <h3 className="text-sm md:text-base font-medium text-blue">{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                    <h2 className="text-base md:text-lg font-semibold line-clamp-2">{r.title}</h2>
+                    <p className="text-gray-600 text-sm line-clamp-2 mt-1 dark:text-gray-300">{r.summary}</p>
                     <Link
                       href={`/article/${r.id}?category=${encodeURIComponent(category)}`}
                       className="text-blue hover:underline font-medium mt-1"
@@ -178,7 +245,7 @@ const ArticlePage = () => {
                       Read More
                     </Link>
                   </div>
-                  <div className="flex justify-start w-[30%] h-35">
+                  <div className="flex justify-start w-[35%] md:w-[30%] h-35">
                     <img
                       src={r.image}
                       alt={r.title}
@@ -192,14 +259,67 @@ const ArticlePage = () => {
           </div>
         )}
 
-        {/* <a
-          href={article.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline"
-        >
-          Read on original site
-        </a> */}
+        {/* Comments */}
+        <div className="mt-8 flex flex-col gap-6 mb-8 ">
+          <h1 className="font-semibold text-xl md:text-3xl dark:text-gray-100">Comments (2)</h1>
+          <div className="flex flex-col gap-2 md:gap-4">
+            <div className="flex gap-2 items-start">
+              <img 
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr54cG9SEpRjXrBRIU75-QcQu-1jlw_3ZhDg&s" 
+                alt="Profile Avatar" 
+                className='rounded-full w-12 h-auto max-h-full object-cover'
+              />
+              <div className="flex flex-col items-start">
+                <div className="flex gap-2 items-center">
+                  <h2 className="text-sm md:text-base font-semibold dark:text-gray-100">Ethan Carter</h2>
+                  <p className="text-xs md:text-sm dark:text-gray-200">
+                    {new Date(article.date).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+                <p className="text-sm dark:text-gray-200">Great coverage of the conference! It's exciting to see the progress in AI and sustainable tech.</p>
+              </div>
+            </div>
+            <div className="ml-12 flex gap-2 items-center">
+              <img 
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOHEcUTVj5rBCmAxMx-btDnAK5tGda8i5aiQ&s" 
+                alt="Profile Avatar" 
+                className='rounded-full w-12 h-12 object-cover'
+              />
+              <div className="flex flex-col items-start">
+                <div className="flex gap-2 items-center">
+                  <h2 className=" font-semibold dark:text-gray-100">Olivia Bennet</h2>
+                  <p className="text-sm dark:text-gray-200">{new Date(article.date).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+                <p className="text-sm dark:text-gray-200">I agree! The focus on ethical considerations is also very important.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full h-px bg-gray-400"></div>
+
+          <div className="flex flex-col gap-3">
+            <div className="w-full flex gap-3 items-start">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdmvH7dnlgLKKhHQGzku44nvGWNSwsA1xuL3_1O7bwiJfZ1uh8fIa5kLnFbnAWP5emjo4&usqp=CAU" alt="Profile Avatar" className='rounded-full w-12 h-12 object-cover bg-orange-500'/>
+              <textarea 
+                name="" 
+                id="" 
+                placeholder="Add a comment..." 
+                className="bg-gray-200 w-full h-25 pt-4 pl-4 p-2 rounded-lg text-gray-500 dark:text-gray-700 placeholder:dark:text-gray-700"
+              >
+              </textarea>
+            </div>
+            <button className="self-end bg-blue text-white py-2 px-4 rounded-lg">Post Comment</button>
+          </div>
+        </div>
       </div>
     </section>
   );
