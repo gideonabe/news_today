@@ -1,4 +1,4 @@
-# ![NewsToday Banner](https://newstoday-nu.vercel.app/newsdesktop.png)
+![NewsToday Banner](https://newstoday-nu.vercel.app/newsdesktop.png)
 
 # NewsToday
 
@@ -56,6 +56,14 @@ You can check the live demo here: [https://newstoday-nu.vercel.app/](https://new
 ---
 
 ## Technologies Used
+
+<!-- - [Next.js 16](https://nextjs.org/) 
+- [React 19](https://reactjs.org/) 
+- [TypeScript](https://www.typescriptlang.org/) 
+- [Tailwind CSS](https://tailwindcss.com/) 
+- [Redux](https://redux.js.org/) 
+- [Lucide Icons](https://lucide.dev/) 
+- [Vercel](https://vercel.com/) (deployment) -->
 
 <p>
   <a href="https://nextjs.org/" target="_blank">
@@ -139,7 +147,6 @@ Contributions are welcome!
 
 
 ---
-
 
 ## License
 
