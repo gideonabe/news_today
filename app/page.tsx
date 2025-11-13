@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Articles from "@/components/Content";
 import Footer from "@/components/Footer";
+import { Suspense } from "react";
+import ArticlesSkeleton from "@/components/ArticleSkeleton";
 
 export default function Home() {
   return (
@@ -10,7 +12,9 @@ export default function Home() {
 
       {/* Page content fills the available space */}
       <div className="grow">
-        <Articles />
+        <Suspense fallback={<ArticlesSkeleton />}>
+          <Articles />
+        </Suspense>
       </div>
 
       {/* Footer at the bottom */}

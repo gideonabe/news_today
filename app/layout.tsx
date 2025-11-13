@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville } from "next/font/google"; // <-- Import Libre Baskerville
+import { Libre_Baskerville } from "next/font/google";
 import "./globals.css";
+import { Analytics } from '@vercel/analytics/react';
 
 // Initialize Libre Baskerville
 const libre = Libre_Baskerville({
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${libre.variable} antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
