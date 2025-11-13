@@ -152,7 +152,7 @@ const Content = () => {
       </div>
 
       {/* Loading, Error, Empty, and Articles display remain unchanged */}
-      {/* {loading && (
+      {loading && (
         <div className="space-y-10">
           <Skeleton className="h-100 md:h-120 w-full rounded-lg bg-gray-300" />
           <div className="flex flex-col gap-4">
@@ -169,7 +169,7 @@ const Content = () => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
 
       {!loading && error && (
         <div className="text-center py-10">
