@@ -99,7 +99,7 @@ const Content = () => {
 
 
   return (
-    <section className="max-w-[75%] mx-auto mt-8 mb-18">
+    <section className="max-w-[90%] md:max-w-[75%] mx-auto mt-8 mb-8 md:mb-18">
       {/* Search Input */}
       <div className="relative">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" />
@@ -116,12 +116,12 @@ const Content = () => {
       </div>
 
       {/* Category Tabs */}
-      <div className="flex flex-wrap justify-start gap-4 my-6">
+      <div className="flex flex-wrap justify-center md:justify-start gap-4 my-6">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium border transition ${
+            className={`px-4 py-2 rounded-full text-sm md:text-base font-medium border transition ${
               selectedCategory === cat
                 ? "bg-blue text-white"
                 : "bg-gray-200 text-gray-700 border-gray-200 hover:bg-gray-300"
@@ -136,12 +136,12 @@ const Content = () => {
       {loading && (
         <div className="space-y-10">
           {/* Featured Article Skeleton */}
-          <Skeleton className="h-120 w-full rounded-lg bg-gray-300" />
+          <Skeleton className="h-100 md:h-120 w-full rounded-lg bg-gray-300" />
 
           {/* Recent Articles Skeleton */}
           <div className="flex flex-col gap-4">
             <Skeleton className="w-48 h-6 mb-2" /> {/* heading skeleton */}
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="space-y-2">
                   <Skeleton className="h-48 w-full rounded-lg bg-gray-300" />
@@ -198,7 +198,7 @@ const Content = () => {
       {!loading && !error && articles.length > 0 && (
         <div className="w-full space-y-10">
           {/* Featured Article */}
-          <div className="relative h-120 bg-gray-900 text-white rounded-lg overflow-hidden hover:shadow-lg transition">
+          <div className="relative h-100 md:h-120 bg-gray-900 text-white rounded-lg overflow-hidden hover:shadow-lg transition">
             <img
               src={articles[0].image}
               alt={articles[0].title}
@@ -206,18 +206,16 @@ const Content = () => {
             />
             <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/60"></div>
 
-            <div className="absolute inset-0 flex flex-col gap-4 justify-end p-6">
-              <h2 className="text-5xl font-bold font-sans mb-3 drop-shadow-md w-[80%] line-clamp-2">
+            <div className="absolute inset-0 flex flex-col gap-1 md:gap-4 justify-end p-6">
+              <h2 className="text-3xl md:text-5xl font-bold font-sans mb-3 drop-shadow-md md:w-[80%] line-clamp-2 md:line-clamp-2">
                 {articles[0].title}
               </h2>
-              <p className="text-gray-200 mb-4 w-[80%] ">
+              <p className="text-gray-200 mb-4 md:w-[80%] line-clamp-2 md:line-clamp-6 ">
                 {articles[0].summary}
               </p>
               <Link
-                // href={articles[0].url}
-                // href={`/article/${articles[0].id}?category=${selectedCategory.toLowerCase()}`}
                 href={`/article/${articles[0].id}?category=${encodeURIComponent(selectedCategory.toLowerCase())}`}
-                className="bg-blue hover:bg-blue-700 text-white px-6 py-3 text-lg rounded-md w-fit"
+                className="bg-blue hover:bg-blue-700 text-white px-4 md:px-6 py-2 md:py-3 text-base md:text-lg rounded-md w-fit"
               >
                 Read More
               </Link>
@@ -227,40 +225,43 @@ const Content = () => {
           {/* Recent Articles */}
           <div className="flex flex-col gap-4">
             <h1 className="font-semibold text-3xl">Recent Articles</h1>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 grid-cols-2 lg:grid-cols-3">
               {articles.slice(1).map((article) => (
-                <div key={article.id} className="overflow-hidden group">
-                  <div className="relative">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="w-full h-48 object-cover rounded-lg group-hover:rounded-b-none transition-all duration-300"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/70 opacity-0 group-hover:opacity-70 transition-opacity rounded-t-lg"></div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Link
-                        href={`/article/${article.id}?category=${encodeURIComponent(selectedCategory.toLowerCase())}`}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm"
-                      >
-                        Read More
-                      </Link>
+                <Link
+                  href={`/article/${article.id}?category=${encodeURIComponent(selectedCategory.toLowerCase())}`}  
+                >
+                  <div key={article.id} className="overflow-hidden group">
+                    <div className="relative">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-40 md:h-48 object-cover rounded-lg group-hover:rounded-b-none transition-all duration-300"
+                      />
+                      <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/70 opacity-0 group-hover:opacity-70 transition-opacity rounded-t-lg"></div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Link
+                          href={`/article/${article.id}?category=${encodeURIComponent(selectedCategory.toLowerCase())}`}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm"
+                        >
+                          Read More
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="pt-2 text-left">
+                      <h2 className="text-base md:text-lg font-semibold mb-2 line-clamp-3">{article.title}</h2>
+                      <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                        {article.summary}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {new Date(article.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </p>
                     </div>
                   </div>
-
-                  <div className="pt-2 text-left">
-                    <h2 className="text-lg font-semibold mb-2">{article.title}</h2>
-                    <p className="text-sm text-gray-600 mb-2 line-clamp-2">
-                      {article.summary}
-                    </p>
-                    <p className="text-xs text-gray-400">
-                      {new Date(article.date).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </p>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

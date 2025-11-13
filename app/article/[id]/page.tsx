@@ -134,9 +134,9 @@ const ArticlePage = () => {
         </div>
         
         {/* Features */}
-        <div className="flex flex-col gap-6 mt-8">
+        <div className="flex flex-col gap-6 mt-8 w-full">
           <div className="w-full h-px bg-gray-400"></div>
-          <div className="flex justify-center items-center gap-10">
+          <div className="flex justify-center items-center gap-4 md:gap-10 text-sm md:text-base w-full">
             <p className="flex gap-2 items-center">
               <Heart />
               1.3k
