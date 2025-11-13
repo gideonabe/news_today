@@ -14,7 +14,6 @@ NewsToday is a modern, responsive news website built with **Next.js 13**, **Reac
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Folder Structure](#folder-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -72,23 +71,21 @@ You can check the live demo here: [https://newstoday-nu.vercel.app/](https://new
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/newstoday.git
+      git clone https://github.com/gideonabe/news_today.git
 
 
 2. Navigate into the project directory
 
-cd news_today
+     cd news_today
 
 3. Install dependicies
 
 npm install 
-# or
 yarn install
 
 4. Run the development server
 
 npm run dev
-# or 
 yarn dev
 
 5. Open http://localhost:3000 in your browser.
