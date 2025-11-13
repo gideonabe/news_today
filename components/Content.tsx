@@ -207,7 +207,7 @@ const Content = () => {
             <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/60"></div>
 
             <div className="absolute inset-0 flex flex-col gap-4 justify-end p-6">
-              <h2 className="text-5xl font-bold font-sans mb-3 drop-shadow-md w-[80%]">
+              <h2 className="text-5xl font-bold font-sans mb-3 drop-shadow-md w-[80%] line-clamp-2">
                 {articles[0].title}
               </h2>
               <p className="text-gray-200 mb-4 w-[80%] ">
