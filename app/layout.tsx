@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Libre_Baskerville } from "next/font/google";
 import "./globals.css";
 import { Analytics } from '@vercel/analytics/react';
+import { Providers } from "./provider";
 
 // Initialize Libre Baskerville
 const libre = Libre_Baskerville({
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   title: "News Today",
   description: "Daily news feed",
   icons: {
-    icon: '/favicon.ico'
+    icon: '/favicon.ico',
   },
 };
 
@@ -26,8 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${libre.variable} antialiased`}>
-        {children}
-        <Analytics />
+        <Providers>
+          {children}
+          <Analytics />
+        </Providers>
       </body>
     </html>
   );
