@@ -20,7 +20,10 @@ const Content = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  // const categoryFromQuery = searchParams?.get("category") || "All";
+  const searchFromQuery = searchParams?.get("search") || "";
   const categoryFromQuery = searchParams?.get("category") || "All";
+
   const [selectedCategory, setSelectedCategory] = useState(categoryFromQuery);
 
   const [articles, setArticles] = useState<Article[]>([]);
@@ -88,7 +91,7 @@ const Content = () => {
           id: encodeURIComponent(item.url),
           title: item.title,
           summary: item.description || "No summary available.",
-          image: item.urlToImage || "https://via.placeholder.com/600x400",
+          image: item.urlToImage || "https://placehold.co/600x400/EEE/31343C",
           date: item.publishedAt,
           url: item.url,
         }));
@@ -103,7 +106,7 @@ const Content = () => {
     }
 
     fetchArticles();
-  }, [selectedCategory, debouncedQuery]);
+  }, [selectedCategory, debouncedQuery, searchFromQuery]);
 
   // Handle category click
   const handleCategoryClick = (cat: string) => {
@@ -209,9 +212,17 @@ const Content = () => {
             <div className="absolute inset-0 flex flex-col gap-1 md:gap-4 justify-end p-6">
               <h2 className="text-3xl md:text-5xl font-bold mb-3 md:w-[80%] line-clamp-2 leading-tight">{articles[0].title}</h2>
               <p className="text-gray-200 mb-4 md:w-[80%] line-clamp-2 md:line-clamp-6 leading-7">{articles[0].summary}</p>
-              <Link
+              {/* <Link
                 href={`/article/${articles[0].id}?category=${encodeURIComponent(selectedCategory.toLowerCase())}`}
                 className="bg-blue hover:bg-blue-700 text-white px-4 md:px-6 py-2 md:py-3 text-base md:text-lg rounded-md w-fit"
+              > */}
+              <Link
+                key={articles[0].id}
+                href={`/article/${articles[0].id}?${
+                  debouncedQuery
+                    ? `search=${encodeURIComponent(debouncedQuery)}`
+                    : `category=${encodeURIComponent(selectedCategory.toLowerCase())}`
+                }`}
               >
                 Read More
               </Link>
@@ -223,9 +234,17 @@ const Content = () => {
             <h1 className="font-semibold text-3xl">Recent Articles</h1>
             <div className="grid gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3">
               {articles.slice(1).map((article) => (
+                // <Link
+                //   key={article.id}
+                //   href={`/article/${article.id}?category=${encodeURIComponent(selectedCategory.toLowerCase())}`}  
+                // >
                 <Link
                   key={article.id}
-                  href={`/article/${article.id}?category=${encodeURIComponent(selectedCategory.toLowerCase())}`}  
+                  href={`/article/${article.id}?${
+                    debouncedQuery
+                      ? `search=${encodeURIComponent(debouncedQuery)}`
+                      : `category=${encodeURIComponent(selectedCategory.toLowerCase())}`
+                  }`}
                 >
                   <div className="overflow-hidden group">
                     <div className="relative">

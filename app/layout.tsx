@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "News Today",
   description: "Daily news feed",
   icons: {
-    icon: '/news.png'
+    icon: '/favicon.ico'
   },
 };
 
@@ -25,9 +25,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/news.png" sizes="any" />
-      </head>
       <body className={`${libre.variable} antialiased`}>
         {children}
         <Analytics />

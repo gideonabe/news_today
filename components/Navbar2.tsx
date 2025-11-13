@@ -11,18 +11,28 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [theme, setTheme] = useState("light");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   // Load theme from localStorage
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") || "light";
     setTheme(storedTheme);
     document.body.classList.toggle("dark", storedTheme === "dark");
-  }, []);
+    
+    // Set initial category from URL
+    const categoryFromQuery = searchParams?.get("category") || "All";
+    const formatted = categoryFromQuery.charAt(0).toUpperCase() + categoryFromQuery.slice(1);
+    setSelectedCategory(formatted);
+  }, [searchParams]);
 
   // Toggle light/dark theme
   const toggleTheme = () => {
@@ -30,6 +40,21 @@ const Navbar = () => {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
     document.body.classList.toggle("dark", newTheme === "dark");
+  };
+
+  // Handle category click
+  const handleCategoryClick = (cat: string) => {
+    setSelectedCategory(cat);
+    setMenuOpen(false); // Close mobile menu when category is selected
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (cat === "All") {
+      params.delete("category");
+    } else {
+      params.set("category", cat.toLowerCase());
+    }
+
+    router.replace(`/?${params.toString()}`);
   };
 
   return (
@@ -57,6 +82,46 @@ const Navbar = () => {
             />
           </div>
         </div>
+
+        {/* Desktop menu links */}
+        <ul className="hidden lg:flex items-center gap-6 text-gray-500 font-medium dark:text-gray-200">
+          <li 
+            className={`cursor-pointer ${selectedCategory === "All" ? "text-blue font-semibold" : ""}`}
+            onClick={() => handleCategoryClick("All")}
+          >
+            Top Stories
+          </li>
+          <li 
+            className={`cursor-pointer ${selectedCategory === "World" ? "text-blue font-semibold" : ""}`}
+            onClick={() => handleCategoryClick("World")}
+          >
+            World
+          </li>
+          <li 
+            className={`cursor-pointer ${selectedCategory === "Politics" ? "text-blue font-semibold" : ""}`}
+            onClick={() => handleCategoryClick("Politics")}
+          >
+            Politics
+          </li>
+          <li 
+            className={`cursor-pointer ${selectedCategory === "Business" ? "text-blue font-semibold" : ""}`}
+            onClick={() => handleCategoryClick("Business")}
+          >
+            Business
+          </li>
+          <li 
+            className={`cursor-pointer ${selectedCategory === "Tech" ? "text-blue font-semibold" : ""}`}
+            onClick={() => handleCategoryClick("Tech")}
+          >
+            Tech
+          </li>
+          <li 
+            className={`cursor-pointer ${selectedCategory === "Culture" ? "text-blue font-semibold" : ""}`}
+            onClick={() => handleCategoryClick("Culture")}
+          >
+            Culture
+          </li>
+        </ul>
 
         {/* Right: Actions */}
         <div className="flex items-center gap-3 md:gap-4">
@@ -101,12 +166,42 @@ const Navbar = () => {
       {menuOpen && (
         <div className="absolute top-full left-0 w-full mt-0 bg-gray-100 dark:bg-gray-800 rounded-b-lg shadow-lg z-50 md:hidden">
           <ul className="flex flex-col font-medium text-center divide-y divide-gray-300 dark:divide-gray-700 dark:text-gray-100">
-            <li className="py-3">Top Stories</li>
-            <li className="py-3">World</li>
-            <li className="py-3">Politics</li>
-            <li className="py-3">Business</li>
-            <li className="py-3">Tech</li>
-            <li className="py-3">Culture</li>
+            <li 
+              className={`py-3 cursor-pointer ${selectedCategory === "All" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("All")}
+            >
+              Top Stories
+            </li>
+            <li 
+              className={`py-3 cursor-pointer ${selectedCategory === "World" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("World")}
+            >
+              World
+            </li>
+            <li 
+              className={`py-3 cursor-pointer ${selectedCategory === "Politics" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("Politics")}
+            >
+              Politics
+            </li>
+            <li 
+              className={`py-3 cursor-pointer ${selectedCategory === "Business" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("Business")}
+            >
+              Business
+            </li>
+            <li 
+              className={`py-3 cursor-pointer ${selectedCategory === "Tech" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("Tech")}
+            >
+              Tech
+            </li>
+            <li 
+              className={`py-3 cursor-pointer ${selectedCategory === "Culture" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("Culture")}
+            >
+              Culture
+            </li>
           </ul>
         </div>
       )}

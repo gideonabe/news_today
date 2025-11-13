@@ -6,6 +6,8 @@ import { notFound, useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Bookmark, Heart, MessageSquare, Share2 } from "lucide-react";
 import Navbar2 from "@/components/Navbar2";
+import ArticleDetailsSkeleton from "@/components/ArticleDetailsSkeleton";
+import { cleanText } from "@/lib/utils";
 
 type Article = {
   id: string;
@@ -29,20 +31,85 @@ const ArticlePage = () => {
   const [error, setError] = useState<string | null>(null);
   const [related, setRelated] = useState<Article[]>([]);
 
+  // useEffect(() => {
+  //   async function fetchArticle() {
+  //     if (!params?.id) return;
+
+  //     setLoading(true);
+  //     try {
+  //       const categoryParam = category.toLowerCase();
+  //       const endpoint = `/api/news?category=${encodeURIComponent(categoryParam)}`;
+  //       const res = await fetch(endpoint);
+  //       const data = await res.json();
+
+  //       const decodedUrl = decodeURIComponent(Array.isArray(params.id) ? params.id[0] : params.id);
+  //       const found = (data || []).find((a: any) => a.url === decodedUrl);
+
+  //       if (!found) {
+  //         notFound();
+  //       } else {
+  //         setArticle({
+  //           id: encodeURIComponent(found.url),
+  //           title: found.title,
+  //           summary: found.description || "No summary available",
+  //           content: found.content || found.description || "",
+  //           image: found.urlToImage || "https://via.placeholder.com/600x400",
+  //           author: found.author || "John Doe",
+  //           description: found.description,
+  //           date: found.publishedAt,
+  //           url: found.url,
+  //         });
+
+  //         const relatedArticles = data
+  //           .filter((a: any) => a.url !== found.url)
+  //           .slice(0, 2)
+  //           .map((item: any) => ({
+  //             id: encodeURIComponent(item.url),
+  //             title: item.title,
+  //             summary: item.description || "No summary available",
+  //             image: item.urlToImage || "https://placehold.co/600x400/EEE/31343C",
+  //             date: item.publishedAt,
+  //             url: item.url,
+  //             author: item.author || "Unknown",
+  //             description: item.description,
+  //             content: item.content,
+  //           }));
+
+  //         setRelated(relatedArticles);
+  //       }
+  //     } catch (err: any) {
+  //       setError(err.message || "Failed to load article");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+
+  //   fetchArticle();
+  // }, [params?.id, category]);
+
   useEffect(() => {
     async function fetchArticle() {
       if (!params?.id) return;
-
+  
       setLoading(true);
       try {
-        const categoryParam = category.toLowerCase();
-        const endpoint = `/api/news?category=${encodeURIComponent(categoryParam)}`;
+        const searchQuery = searchParams?.get("search");
+        const categoryParam = searchParams?.get("category") || "all";
+  
+        let endpoint = "";
+  
+        if (searchQuery) {
+          endpoint = `/api/news?search=${encodeURIComponent(searchQuery)}`;
+        } else {
+          endpoint = `/api/news?category=${encodeURIComponent(categoryParam.toLowerCase())}`;
+        }
+  
         const res = await fetch(endpoint);
         const data = await res.json();
-
+  
         const decodedUrl = decodeURIComponent(Array.isArray(params.id) ? params.id[0] : params.id);
         const found = (data || []).find((a: any) => a.url === decodedUrl);
-
+  
         if (!found) {
           notFound();
         } else {
@@ -57,7 +124,8 @@ const ArticlePage = () => {
             date: found.publishedAt,
             url: found.url,
           });
-
+  
+          // Fetch related (from the same data set)
           const relatedArticles = data
             .filter((a: any) => a.url !== found.url)
             .slice(0, 2)
@@ -65,14 +133,14 @@ const ArticlePage = () => {
               id: encodeURIComponent(item.url),
               title: item.title,
               summary: item.description || "No summary available",
-              image: item.urlToImage || "https://via.placeholder.com/400x250",
+              image: item.urlToImage || "https://placehold.co/600x400/EEE/31343C",
               date: item.publishedAt,
               url: item.url,
               author: item.author || "Unknown",
               description: item.description,
               content: item.content,
             }));
-
+  
           setRelated(relatedArticles);
         }
       } catch (err: any) {
@@ -81,85 +149,15 @@ const ArticlePage = () => {
         setLoading(false);
       }
     }
-
+  
     fetchArticle();
-  }, [params?.id, category]);
+  }, [params?.id, searchParams]);
+  
 
   // Full skeleton layout
   if (loading)
     return (
-      <section>
-        <Navbar2 />
-        <div className="max-w-[95%] md:max-w-[75%] mx-auto mt-4 md:mt-8 space-y-6">
-
-          {/* Breadcrumb */}
-          <Skeleton className="h-4 w-1/4 md:w-1/6" />
-
-          {/* Title & Author */}
-          <Skeleton className="h-10 md:h-16 w-3/4 md:w-1/2" />
-          <Skeleton className="h-4 w-1/3 md:w-1/4" />
-
-          {/* Main Image */}
-          <Skeleton className="h-80 md:h-112 w-full rounded-lg" />
-
-          {/* Content */}
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-5/6" />
-            <Skeleton className="h-4 w-4/6" />
-            <Skeleton className="h-4 w-3/6" />
-          </div>
-
-          {/* Features */}
-          <div className="flex justify-around mt-4">
-            {[...Array(4)].map((_, idx) => (
-              <Skeleton key={idx} className="h-6 w-16 md:w-20 rounded" />
-            ))}
-          </div>
-
-          {/* Related Articles */}
-          <div className="mt-10">
-            <Skeleton className="h-6 md:h-8 w-1/3 mb-4" />
-            <div className="grid md:grid-cols-2 gap-4">
-              {[...Array(2)].map((_, idx) => (
-                <div key={idx} className="flex gap-4">
-                  <div className="flex-1 flex flex-col space-y-2">
-                    <Skeleton className="h-3 w-1/4" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-3 w-5/6" />
-                    <Skeleton className="h-4 w-1/3" />
-                  </div>
-                  <Skeleton className="w-[35%] h-24 md:h-32 rounded-lg" />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Comments */}
-          <div className="mt-10 space-y-4">
-            <Skeleton className="h-6 md:h-8 w-1/4" />
-            {[...Array(2)].map((_, idx) => (
-              <div key={idx} className="flex gap-2 items-start">
-                <Skeleton className="w-12 h-12 rounded-full" />
-                <div className="flex-1 space-y-2">
-                  <Skeleton className="h-4 w-1/3" />
-                  <Skeleton className="h-3 w-full" />
-                  <Skeleton className="h-3 w-5/6" />
-                </div>
-              </div>
-            ))}
-
-            {/* Comment input */}
-            <div className="flex gap-3 items-start">
-              <Skeleton className="w-12 h-12 rounded-full" />
-              <Skeleton className="h-24 w-full rounded-lg" />
-            </div>
-            <Skeleton className="h-10 w-32 rounded-lg self-end" />
-          </div>
-
-        </div>
-      </section>
+      <ArticleDetailsSkeleton />
     );
 
   if (error) return <p className="text-red-500 text-center mt-10">{error}</p>;
@@ -197,7 +195,16 @@ const ArticlePage = () => {
             alt={article.title}
             className="w-full h-90 md:h-110 object-cover rounded-lg"
           />
-          <p className="text-base md:text-lg">{article.content}</p>
+          <p className="text-base md:text-lg">{cleanText(article.content)}</p>
+          <Link
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue hover:underline"
+          >
+            Read the full article on {new URL(article.url).hostname}
+          </Link>
+
         </div>
         
         {/* Features */}
