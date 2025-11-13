@@ -2,7 +2,7 @@
 
 # NewsToday
 
-NewsToday is a modern, responsive news website built with **Next.js 13**, **React**, and **Tailwind CSS**. It features a dynamic navbar, dark/light mode toggle, mobile-friendly design, and a clean, user-friendly interface for browsing news across multiple categories.
+NewsToday is a modern, responsive news website built with **Next.js 13**, **React**, **Redux**, and **Tailwind CSS**. It features a dynamic navbar, dark/light mode toggle, mobile-friendly design, and a clean, user-friendly interface for browsing news across multiple categories. News are fetched through google news api endpoint based on different categories and search queries.
 
 ---
 
@@ -123,11 +123,15 @@ yarn dev
 
 - Toggle Theme: Click the Moon/Sun icon to switch between light and dark mode.
 
-- Search: Use the search input to filter news (currently static placeholder).
-
-- Navigation: Click menu items to navigate categories (can be linked to pages or APIs).
+- Search: Use the search input to fetch news based on input keywords.
 
 - Hamburger Menu: On mobile and tablet, click the hamburger to open the navigation menu overlay.
+
+- Navigation: Click menu items to navigate diffent news categories.
+
+- Categories: works like the nav menus, click on any of the categories to see different news articles based on selected category
+
+- News Details: click on the "Read more" button or any of the news article to see more details about it, you can also check other related articles in the same page.
 
 ---
 
