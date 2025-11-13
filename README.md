@@ -57,13 +57,30 @@ You can check the live demo here: [https://newstoday-nu.vercel.app/](https://new
 
 ## Technologies Used
 
-- [Next.js 16](https://nextjs.org/)
-- [React 19](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Redux](https://redux.js.org/)
-- [Lucide Icons](https://lucide.dev/)
-- [Vercel](https://vercel.com/) (deployment)
+<p>
+  <a href="https://nextjs.org/" target="_blank">
+    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
+  </a>
+  <a href="https://reactjs.org/" target="_blank">
+    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+  </a>
+  <a href="https://www.typescriptlang.org/" target="_blank">
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  </a>
+  <a href="https://tailwindcss.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  </a>
+  <a href="https://redux.js.org/" target="_blank">
+    <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white" />
+  </a>
+  <a href="https://lucide.dev/" target="_blank">
+    <img src="https://img.shields.io/badge/Lucide_Icons-000000?style=for-the-badge&logo=lucide&logoColor=white" />
+  </a>
+  <a href="https://vercel.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  </a>
+</p>
+
 
 ---
 
@@ -91,6 +108,9 @@ yarn dev
 5. Open http://localhost:3000 in your browser.
 
 
+---
+
+
 ## Usage
 
 - Toggle Theme: Click the Moon/Sun icon to switch between light and dark mode.
@@ -101,7 +121,7 @@ yarn dev
 
 - Hamburger Menu: On mobile and tablet, click the hamburger to open the navigation menu overlay.
 
-
+---
 
 ## Contributing
 
@@ -116,6 +136,9 @@ Contributions are welcome!
 - Push to your branch: git push origin feature-name
 
 - Open a Pull Request
+
+
+---
 
 
 ## License
