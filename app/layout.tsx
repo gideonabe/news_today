@@ -14,9 +14,7 @@ export const metadata: Metadata = {
   title: "News Today",
   description: "Daily news feed",
   icons: {
-    icon: "/news.png",
-    shortcut: "/news.png",
-    apple: "/news.png",
+    icon: "/favicon.ico",
   },
 };
 
