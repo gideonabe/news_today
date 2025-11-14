@@ -147,8 +147,8 @@ const ArticlePage = () => {
 
   if (error) return (
     <div className="flex flex-col justify-center items-center h-screen w-full">
-      <p className="mb-4 font-semibold text-lg md:text-3xl text-center">Oops! Something went wrong while fetching the articles. Refresh or go back to Previous page</p>
-      {/* <p className="text-gray-600 mb-6 text-center">{error}</p> */}
+      <p className="mb-4 px-4 font-semibold text-base md:text-3xl text-center">Oops! Something went wrong while fetching the articles. <br /> Refresh or go back to Previous page</p>
+      <p className="text-gray-600 mb-6 text-center">{error}</p>
     </div>
   )
 
@@ -193,7 +193,7 @@ const ArticlePage = () => {
             href={article.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue hover:underline"
+            className="text-blue md:hover:underline"
           >
             Read the full article on {new URL(article.url).hostname}
           </Link>
@@ -227,7 +227,7 @@ const ArticlePage = () => {
         {/* Related Articles */}
         {related.length > 0 && (
           <div className="mt-10 dark:text-gray-100">
-            <h1 className="text-xl md:text-3xl font-semibold mb-2 md:mb-6">Related Articles</h1>
+            <h1 className="text-xl md:text-2xl font-semibold mb-2 md:mb-6">Related Articles</h1>
             <div className="grid gap-4 md:gap-8 md:grid-cols-2">
               {related.map((r) => (
                 <div
@@ -235,8 +235,8 @@ const ArticlePage = () => {
                   className="flex gap-4 overflow-hidden items-start"
                 >
                   <div className="flex flex-1 flex-col justify-between  space-y-1">
-                    <h3 className="text-sm md:text-base font-medium text-blue">{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
-                    <h2 className="text-base md:text-lg font-semibold line-clamp-2">{r.title}</h2>
+                    <h3 className="text-sm font-medium text-blue">{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                    <h2 className="text-base font-semibold line-clamp-2">{r.title}</h2>
                     <p className="text-gray-600 text-sm line-clamp-2 mt-1 dark:text-gray-300">{r.summary}</p>
                     <Link
                       href={`/article/${r.id}?${
@@ -244,7 +244,7 @@ const ArticlePage = () => {
                           ? `search=${encodeURIComponent(searchParams.get("search") || "")}`
                           : `category=${encodeURIComponent(category.toLowerCase())}`
                       }`}
-                      className="text-blue hover:underline font-medium mt-1"
+                      className="text-blue text-sm md:hover:underline font-medium mt-1"
                     >
                       Read More
                     </Link>
@@ -265,7 +265,7 @@ const ArticlePage = () => {
 
         {/* Comments */}
         <div className="mt-8 flex flex-col gap-6 mb-8 ">
-          <h1 className="font-semibold text-xl md:text-3xl dark:text-gray-100">Comments (2)</h1>
+          <h1 className="font-semibold text-xl md:text-2xl dark:text-gray-100">Comments (2)</h1>
           <div className="flex flex-col gap-2 md:gap-4">
             <div className="flex gap-2 items-start">
               <img 

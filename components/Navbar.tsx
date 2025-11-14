@@ -104,13 +104,54 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative pb-3 pt-3 border-b border-gray-400 dark:border-gray-600">
+    <nav className="relative pb-3 pt-3 border-b border-gray-200 dark:border-gray-600">
       <div className="flex justify-between items-center max-w-[95%] mx-auto">
 
-        {/* Left: Logo */}
-        <div className="flex items-center gap-1">
-          <CalendarRange color="blue" />
-          <h1 className="font-semibold text-xl md:text-2xl dark:text-gray-100">NewsToday</h1>
+        {/* Left: section */}
+        <div className="flex gap-10 item-center">
+          <div className="flex items-center gap-1">
+            <CalendarRange color="blue" />
+            <h1 className="font-semibold text-xl md:text-2xl dark:text-gray-100">NewsToday</h1>
+          </div>
+          {/* Desktop menu links */}
+          <ul className="hidden lg:flex items-center gap-6 text-gray-400 font-medium dark:text-gray-200">
+            <li 
+              className={`cursor-pointer ${selectedCategory === "All" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("All")}
+            >
+              Top Stories
+            </li>
+            <li 
+              className={`cursor-pointer ${selectedCategory === "World" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("World")}
+            >
+              World
+            </li>
+            <li 
+              className={`cursor-pointer ${selectedCategory === "Politics" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("Politics")}
+            >
+              Politics
+            </li>
+            <li 
+              className={`cursor-pointer ${selectedCategory === "Business" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("Business")}
+            >
+              Business
+            </li>
+            <li 
+              className={`cursor-pointer ${selectedCategory === "Tech" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("Tech")}
+            >
+              Tech
+            </li>
+            <li 
+              className={`cursor-pointer ${selectedCategory === "Culture" ? "text-blue font-semibold" : ""}`}
+              onClick={() => handleCategoryClick("Culture")}
+            >
+              Culture
+            </li>
+          </ul>
         </div>
 
         {/* Centered Search for tablet only */}
@@ -123,64 +164,24 @@ const Navbar = () => {
               onChange={handleNavbarSearchChange}
               onKeyDown={handleNavbarSearchKeyDown}
               placeholder="Search news..."
-              className="w-full bg-gray-200 dark:bg-gray-700 dark:text-gray-100 py-2 pl-10 rounded-full focus:outline-none"
+              className="w-full bg-gray-100 dark:bg-gray-400/30 dark:text-gray-300 py-2 pl-10 rounded-full focus:outline-none"
             />
           </div>
         </div>
-
-        {/* Desktop menu links */}
-        <ul className="hidden lg:flex items-center gap-6 text-gray-500 font-medium dark:text-gray-200">
-          <li 
-            className={`cursor-pointer ${selectedCategory === "All" ? "text-blue font-semibold" : ""}`}
-            onClick={() => handleCategoryClick("All")}
-          >
-            Top Stories
-          </li>
-          <li 
-            className={`cursor-pointer ${selectedCategory === "World" ? "text-blue font-semibold" : ""}`}
-            onClick={() => handleCategoryClick("World")}
-          >
-            World
-          </li>
-          <li 
-            className={`cursor-pointer ${selectedCategory === "Politics" ? "text-blue font-semibold" : ""}`}
-            onClick={() => handleCategoryClick("Politics")}
-          >
-            Politics
-          </li>
-          <li 
-            className={`cursor-pointer ${selectedCategory === "Business" ? "text-blue font-semibold" : ""}`}
-            onClick={() => handleCategoryClick("Business")}
-          >
-            Business
-          </li>
-          <li 
-            className={`cursor-pointer ${selectedCategory === "Tech" ? "text-blue font-semibold" : ""}`}
-            onClick={() => handleCategoryClick("Tech")}
-          >
-            Tech
-          </li>
-          <li 
-            className={`cursor-pointer ${selectedCategory === "Culture" ? "text-blue font-semibold" : ""}`}
-            onClick={() => handleCategoryClick("Culture")}
-          >
-            Culture
-          </li>
-        </ul>
 
         {/* Right section: theme, bell, hamburger, desktop search */}
         <div className="flex items-center gap-3 md:gap-4">
           
           {/* Desktop search for lg+ */}
           <div className="hidden lg:flex relative mr-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
             <input
               type="text"
               value={navbarSearchQuery}
               onChange={handleNavbarSearchChange}
               onKeyDown={handleNavbarSearchKeyDown}
               placeholder="Search news..."
-              className="w-full bg-gray-200 dark:bg-gray-700 dark:text-gray-100 py-2 pl-10 rounded-full focus:outline-none"
+              className="w-full bg-gray-100 dark:bg-gray-400/30 dark:text-gray-200 py-2 pl-10 rounded-full focus:outline-none"
             />
           </div>
 

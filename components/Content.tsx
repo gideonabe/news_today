@@ -153,7 +153,7 @@ const Content = () => {
           onChange={handleSearchChange}
           onKeyDown={handleSearchKeyDown}
           placeholder="Search for news, topics..."
-          className="bg-white pl-14 pr-24 py-4 border border-gray-300 rounded-sm w-full text-gray-800"
+          className="bg-white pl-14 pr-24 py-4 border border-gray-200 shadow-xs rounded-sm w-full text-gray-800"
         />
       </div>
 
@@ -165,8 +165,8 @@ const Content = () => {
             onClick={() => handleCategoryClick(cat)}
             className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium border transition ${
               selectedCategory === cat
-                ? "bg-blue text-white"
-                : "bg-gray-200/20 text-gray-700 dark:text-gray-200 border-gray-100 hover:bg-gray-200"
+                ? "bg-blue text-background dark:text-foreground"
+                : "bg-gray-200/20 text-gray-700 dark:text-gray-200 dark:hover:text-background border-gray-100 hover:bg-gray-200"
             }`}
           >
             {cat}
@@ -223,23 +223,23 @@ const Content = () => {
       {!loading && !error && articles.length > 0 && (
         <div className="w-full space-y-10">
           {/* Featured Article */}
-          <div className="relative h-100 md:h-120 bg-gray-900 text-white rounded-lg overflow-hidden hover:shadow-lg transition">
+          <div className="relative h-100 md:h-120 bg-gray-900 text-background dark:text-foreground rounded-lg overflow-hidden hover:shadow-lg transition">
             <img
               src={articles[0].image}
               alt={articles[0].title}
               className="w-full h-full object-cover opacity-70"
             />
-            <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/60"></div>
+            <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/70"></div>
             <div className="absolute inset-0 flex flex-col gap-1 md:gap-4 justify-end p-6">
               <h2 className="text-3xl md:text-5xl font-bold mb-3 md:w-[80%] line-clamp-2 leading-tight">{articles[0].title}</h2>
-              <p className="text-gray-200 mb-4 md:w-[80%] line-clamp-2 md:line-clamp-6 leading-7">{articles[0].summary}</p>
+              <p className=" mb-4 md:w-[80%] line-clamp-2 md:line-clamp-6 leading-7">{articles[0].summary}</p>
               <Link
                 href={`/article/${articles[0].id}?${
                   debouncedQuery
                     ? `search=${encodeURIComponent(debouncedQuery)}`
                     : `category=${encodeURIComponent(selectedCategory.toLowerCase())}`
                 }`}
-                className="bg-blue hover:bg-blue-700 text-white px-4 md:px-6 py-2 md:py-3 text-base md:text-lg rounded-md w-fit"
+                className="bg-blue hover:bg-blue-700 px-4 md:px-6 py-2 md:py-3 text-base md:text-lg rounded-md w-fit"
               >
                 Read More
               </Link>
@@ -248,7 +248,7 @@ const Content = () => {
 
           {/* Recent Articles */}
           <div className="flex flex-col gap-4">
-            <h1 className="font-semibold text-3xl">Recent Articles</h1>
+            <h1 className="font-semibold text-2xl">Recent Articles</h1>
             <div className="grid gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3">
               {articles.slice(1).map((article) => (
                 <Link
@@ -272,9 +272,9 @@ const Content = () => {
                       </div>
                     </div>
                     <div className="pt-2 text-left">
-                      <h2 className="text-base md:text-lg dark:text-gray-100 font-semibold mb-2 line-clamp-3">{article.title}</h2>
-                      <p className="text-sm text-gray-700 dark:text-gray-200 mb-2 line-clamp-2">{article.summary}</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-500">
+                      <h2 className="text-foreground text-base dark:text-gray-100 font-semibold mb-2 line-clamp-3">{article.title}</h2>
+                      <p className="text-sm text-gray-400 dark:text-gray-300 mb-2 line-clamp-2">{article.summary}</p>
+                      <p className="text-sm text-gray-300 dark:text-gray-400">
                         {new Date(article.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </p>
                     </div>

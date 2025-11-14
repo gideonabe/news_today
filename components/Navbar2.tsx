@@ -128,7 +128,7 @@ const Navbar2 = () => {
               onChange={handleSearchChange}
               onKeyDown={handleSearchKeyDown}
               placeholder="Search..."
-              className="w-full bg-gray-200 dark:bg-gray-700 dark:text-gray-100 py-2 pl-10 rounded-full focus:outline-none"
+              className="w-full bg-gray-100 dark:bg-gray-400/30 dark:text-gray-300 py-2 pl-10 rounded-full focus:outline-none"
             />
           </div>
         </div>
@@ -144,7 +144,7 @@ const Navbar2 = () => {
               onChange={handleSearchChange}
               onKeyDown={handleSearchKeyDown}
               placeholder="Search..."
-              className="bg-gray-200 dark:bg-gray-700 dark:text-gray-100 py-2 pl-10 rounded-full focus:outline-none"
+              className="bg-gray-100 dark:bg-gray-400/30 dark:text-gray-300 py-2 pl-10 rounded-full focus:outline-none"
             />
           </div>
 
