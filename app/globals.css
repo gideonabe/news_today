@@ -47,7 +47,6 @@
   --color-gray-100: #F3F4F6;
   --color-gray-300: #7B818E;
   --color-gray-400: #4F5966;
-  /* --font-mono: var(--font-geist-mono); */
 ;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -94,8 +93,6 @@
 
 body {
   font-family: var(--font-libre), serif;
-  /* font-family: Arial, Helvetica, sans-serif; */
-  /* font-family: "Playfair Display", serif; */
   background: var(--background);
 }
 

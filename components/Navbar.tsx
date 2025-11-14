@@ -104,18 +104,16 @@ const Navbar = () => {
   };
 
   return (
-    // Updated with nav-border and container-main classes
     <nav className="relative pb-3 pt-3 nav-border">
-      {/* Updated with nav-container and container-main classes */}
       <div className="nav-container container-main">
 
         {/* Left: section */}
         <div className="flex gap-10 item-center">
           <div className="flex items-center gap-1">
             <CalendarRange color="blue" />
-            {/* Updated with text-heading class */}
             <h1 className="text-heading">NewsToday</h1>
           </div>
+
           {/* Desktop menu links */}
           <ul className="hidden lg:flex items-center gap-6 nav-item-inactive">
             <li 
@@ -189,17 +187,14 @@ const Navbar = () => {
           </div>
 
           {/* Theme toggle */}
-          {/* Updated with btn-icon class */}
           <button onClick={toggleTheme} className="btn-icon">
             {theme === "light" ? <Moon /> : <Sun />}
           </button>
 
           {/* Bell icon */}
-          {/* Updated with btn-icon class */}
           <Bell className="cursor-pointer btn-icon" />
 
           {/* Hamburger menu for mobile & tablet */}
-          {/* Updated with btn-nav class */}
           <button
             className="md:flex lg:hidden btn-nav"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -220,7 +215,6 @@ const Navbar = () => {
               onChange={handleNavbarSearchChange}
               onKeyDown={handleNavbarSearchKeyDown}
               placeholder="Search news..."
-              // Updated with input-mobile-search class
               className="input-mobile-search"
               autoFocus
             />
