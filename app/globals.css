@@ -141,3 +141,174 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+
+  /* Utility classes */
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  
+  .absolute-center {
+    @apply absolute left-3 top-1/2 -translate-y-1/2;
+  }
+
+  /* Page/container width used across pages */
+  .container {
+    @apply max-w-[90%] lg:max-w-[75%] mx-auto;
+  }
+
+  /* Breadcrumb / small meta nav */
+  .breadcrumb {
+    @apply text-lg text-gray-500 dark:text-gray-200 mb-4 mt-4 md:mt-8;
+  }
+
+  /* Featured card styles for hero article */
+  .featured-card {
+    @apply relative h-100 md:h-120 bg-gray-900 text-background dark:text-foreground rounded-lg overflow-hidden hover:shadow-lg transition;
+  }
+
+  /* Generic article row used in related lists */
+  .article-row {
+    @apply flex gap-4 overflow-hidden items-start;
+  }
+
+  /* Image helper */
+  .media-cover {
+    @apply w-full h-full object-cover;
+  }
+
+  /* Search/input variants */
+  .tablet-nav-search {
+    @apply w-full bg-gray-100 dark:bg-gray-400/30 dark:text-gray-300 py-2 pl-10 rounded-full focus:outline-none;
+  }
+  .desktop-nav-search {
+    @apply bg-gray-100 dark:bg-gray-400/30 dark:text-gray-300 py-2 pl-10 rounded-full focus:outline-none;
+  }
+
+  /* Category pills */
+  .category-btn {
+    @apply px-4 py-2 rounded-full text-xs md:text-sm font-medium border transition;
+  }
+  .category-btn--active {
+    @apply bg-blue text-background dark:text-foreground;
+  }
+  .category-btn--inactive {
+    @apply bg-gray-200/20 text-gray-700 dark:text-gray-200 dark:hover:text-background border-gray-100 hover:bg-gray-200;
+  }
+
+  /* Divider */
+  .divider {
+    @apply w-full h-px bg-gray-400;
+  }
+  
+  /* Container classes */
+  .container-main {
+    @apply max-w-[95%] mx-auto;
+  }
+  
+  .container-article {
+    @apply max-w-[95%] md:max-w-[75%] mx-auto;
+  }
+  
+  .container-content {
+    @apply max-w-[90%] md:max-w-[75%] mx-auto mt-8 mb-8 md:mb-18;
+  }
+  
+  /* Navigation classes */
+  .nav-container {
+    @apply flex justify-between items-center;
+  }
+  
+  .nav-border {
+    @apply border-b border-gray-200 dark:border-gray-600;
+  }
+  
+  .nav-item-active {
+    @apply text-blue font-semibold;
+  }
+  
+  .nav-item-inactive {
+    @apply text-gray-400 font-medium dark:text-gray-200;
+  }
+  
+  /* Text classes */
+  .text-heading {
+    @apply font-semibold text-xl md:text-2xl dark:text-gray-100;
+  }
+  
+  .text-article-title {
+    @apply text-2xl md:text-5xl font-semibold md:font-bold md:w-[80%] md:leading-14;
+  }
+
+  .featured-article-title {
+    @apply text-3xl md:text-5xl font-semibold md:font-bold md:w-[80%] md:leading-14 mb-3 line-clamp-2;
+  }
+  
+  .text-article-meta {
+    @apply text-gray-500 dark:text-gray-400 font-sans;
+  }
+  
+  .text-article-content {
+    @apply text-base md:text-lg;
+  }
+  
+  .text-link {
+    @apply text-blue md:hover:underline;
+  }
+  
+  /* Button classes */
+  .btn-nav {
+    @apply p-2 text-gray-700 dark:text-gray-200;
+  }
+  
+  .btn-icon {
+    @apply text-gray-700 dark:text-gray-200;
+  }
+  
+  
+  /* Image classes */
+  .img-avatar {
+    @apply rounded-full w-10 h-10 object-cover;
+  }
+  
+  .img-article-main {
+    @apply w-full h-90 md:h-110 object-cover rounded-lg;
+  }
+  
+  .img-article-related {
+    @apply w-full h-full object-cover rounded-xl;
+  }
+  
+  .img-article-grid {
+    @apply w-full h-40 md:h-48 object-cover rounded-lg group-hover:rounded-b-none transition-all duration-300;
+  }
+  
+  /* Form/input classes */
+  .input-main-search {
+    @apply bg-white pl-14 pr-24 py-4 border border-gray-200 shadow-xs rounded-sm w-full text-gray-800;
+  }
+  
+  /* Layout classes */
+  .section-main {
+    @apply max-w-full mx-auto mt-2 md:mt-6 space-y-4 md:space-y-6 dark:text-gray-100;
+  }
+  
+  .section-comments {
+    @apply mt-8 flex flex-col gap-6 mb-8;
+  }
+  
+  .grid-articles {
+    @apply grid gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3;
+  }
+
+  
+  /* Footer classes */
+  .footer-main {
+    @apply max-w-full bg-gray-100 dark:bg-gray-300/10 flex text-gray-300 flex-col justify-center items-center gap-4 pt-4 md:pt-10 pb-6 md:pb-12 text-foreground text-sm md:text-base;
+  }
+  
+  .footer-links {
+    @apply flex flex-col md:flex-row gap-2 md:gap-8 items-center;
+  }
+}

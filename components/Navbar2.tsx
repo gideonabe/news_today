@@ -105,14 +105,14 @@ const Navbar2 = () => {
   };
 
   return (
-    <nav className="pb-3 pt-3 border-b border-gray-400 dark:border-gray-600 relative">
-      <div className="flex justify-between items-center max-w-[95%] mx-auto">
+    <nav className="pb-3 pt-3 nav-border">
+      <div className="nav-container container-main">
 
         {/* Left: Logo */}
         <Link href="/">
           <div className="flex items-center gap-1">
             <CalendarRange color="blue" />
-            <h1 className="font-semibold text-xl md:text-2xl dark:text-gray-100">
+            <h1 className="text-heading">
               NewsToday
             </h1>
           </div>
@@ -121,14 +121,14 @@ const Navbar2 = () => {
         {/* Center: Search input for tablet/iPad */}
         <div className="hidden sm:flex md:hidden flex-1 justify-center px-4">
           <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300"/>
+            <Search className="absolute-center text-gray-600 dark:text-gray-300"/>
             <input
               type="text"
               value={query}
               onChange={handleSearchChange}
               onKeyDown={handleSearchKeyDown}
               placeholder="Search..."
-              className="w-full bg-gray-100 dark:bg-gray-400/30 dark:text-gray-300 py-2 pl-10 rounded-full focus:outline-none"
+              className="tablet-nav-search"
             />
           </div>
         </div>
@@ -137,22 +137,22 @@ const Navbar2 = () => {
         <div className="flex items-center gap-3 md:gap-4">
           {/* Desktop search (kept for md+) */}
           <div className="hidden md:block relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300"/>
+            <Search className="absolute-center text-gray-600 dark:text-gray-300"/>
             <input
               type="text"
               value={query}
               onChange={handleSearchChange}
               onKeyDown={handleSearchKeyDown}
               placeholder="Search..."
-              className="bg-gray-100 dark:bg-gray-400/30 dark:text-gray-300 py-2 pl-10 rounded-full focus:outline-none"
+              className="desktop-nav-search"
             />
           </div>
 
           {/* Bell */}
-          <Bell className="cursor-pointer text-gray-700 dark:text-gray-200"/>
+          <Bell className="cursor-pointer btn-icon"/>
 
           {/* Theme toggle */}
-          <button onClick={toggleTheme} className="text-gray-700 dark:text-gray-200">
+          <button onClick={toggleTheme} className="btn-icon">
             {theme === "light" ? <Moon /> : <Sun />}
           </button>
 
@@ -161,13 +161,13 @@ const Navbar2 = () => {
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdmvH7dnlgLKKhHQGzku44nvGWNSwsA1xuL3_1O7bwiJfZ1uh8fIa5kLnFbnAWP5emjo4&usqp=CAU"
               alt="Profile Avatar"
-              className="rounded-full w-10 h-10 object-cover"
+              className="img-avatar"
             />
           </a>
 
           {/* Hamburger (mobile + tablet) */}
           <button
-            className="p-2 text-gray-700 dark:text-gray-200 sm:block md:hidden"
+            className="btn-nav sm:block md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <X /> : <Menu />}
@@ -180,37 +180,37 @@ const Navbar2 = () => {
         <div className="absolute top-full left-0 w-full mt-0 bg-gray-100 dark:bg-gray-800 rounded-b-lg shadow-lg z-50 md:hidden">
           <ul className="flex flex-col font-medium text-center divide-y divide-gray-300 dark:divide-gray-700 dark:text-gray-100">
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "All" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "All" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("All")}
             >
               Top Stories
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "World" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "World" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("World")}
             >
               World
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "Politics" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "Politics" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("Politics")}
             >
               Politics
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "Business" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "Business" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("Business")}
             >
               Business
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "Tech" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "Tech" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("Tech")}
             >
               Tech
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "Culture" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "Culture" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("Culture")}
             >
               Culture

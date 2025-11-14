@@ -4,9 +4,8 @@ import { Skeleton } from './ui/skeleton'
 
 const ArticleDetailsSkeleton = () => {
   return (
-    <section>
-      <Navbar />
-      <div className="max-w-[95%] md:max-w-[75%] mx-auto mt-4 md:mt-8 space-y-6">
+
+      <div className="container mt-4 md:mt-8 space-y-6">
 
         {/* Breadcrumb */}
         <Skeleton className="h-4 w-1/4 md:w-1/6" />
@@ -75,7 +74,6 @@ const ArticleDetailsSkeleton = () => {
         </div>
 
       </div>
-    </section>
   )
 }
 

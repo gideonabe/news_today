@@ -104,49 +104,52 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative pb-3 pt-3 border-b border-gray-200 dark:border-gray-600">
-      <div className="flex justify-between items-center max-w-[95%] mx-auto">
+    // Updated with nav-border and container-main classes
+    <nav className="relative pb-3 pt-3 nav-border">
+      {/* Updated with nav-container and container-main classes */}
+      <div className="nav-container container-main">
 
         {/* Left: section */}
         <div className="flex gap-10 item-center">
           <div className="flex items-center gap-1">
             <CalendarRange color="blue" />
-            <h1 className="font-semibold text-xl md:text-2xl dark:text-gray-100">NewsToday</h1>
+            {/* Updated with text-heading class */}
+            <h1 className="text-heading">NewsToday</h1>
           </div>
           {/* Desktop menu links */}
-          <ul className="hidden lg:flex items-center gap-6 text-gray-400 font-medium dark:text-gray-200">
+          <ul className="hidden lg:flex items-center gap-6 nav-item-inactive">
             <li 
-              className={`cursor-pointer ${selectedCategory === "All" ? "text-blue font-semibold" : ""}`}
+              className={`cursor-pointer ${selectedCategory === "All" ? "nav-item-active" : "nav-item-inactive"}`}
               onClick={() => handleCategoryClick("All")}
             >
               Top Stories
             </li>
             <li 
-              className={`cursor-pointer ${selectedCategory === "World" ? "text-blue font-semibold" : ""}`}
+              className={`cursor-pointer ${selectedCategory === "World" ? "nav-item-active" : "nav-item-inactive"}`}
               onClick={() => handleCategoryClick("World")}
             >
               World
             </li>
             <li 
-              className={`cursor-pointer ${selectedCategory === "Politics" ? "text-blue font-semibold" : ""}`}
+              className={`cursor-pointer ${selectedCategory === "Politics" ? "nav-item-active" : "nav-item-inactive"}`}
               onClick={() => handleCategoryClick("Politics")}
             >
               Politics
             </li>
             <li 
-              className={`cursor-pointer ${selectedCategory === "Business" ? "text-blue font-semibold" : ""}`}
+              className={`cursor-pointer ${selectedCategory === "Business" ? "nav-item-active" : "nav-item-inactive"}`}
               onClick={() => handleCategoryClick("Business")}
             >
               Business
             </li>
             <li 
-              className={`cursor-pointer ${selectedCategory === "Tech" ? "text-blue font-semibold" : ""}`}
+              className={`cursor-pointer ${selectedCategory === "Tech" ? "nav-item-active" : "nav-item-inactive"}`}
               onClick={() => handleCategoryClick("Tech")}
             >
               Tech
             </li>
             <li 
-              className={`cursor-pointer ${selectedCategory === "Culture" ? "text-blue font-semibold" : ""}`}
+              className={`cursor-pointer ${selectedCategory === "Culture" ? "nav-item-active" : "nav-item-inactive"}`}
               onClick={() => handleCategoryClick("Culture")}
             >
               Culture
@@ -157,14 +160,14 @@ const Navbar = () => {
         {/* Centered Search for tablet only */}
         <div className="hidden md:flex lg:hidden flex-1 justify-center px-4">
           <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300" />
+            <Search className="absolute-center text-gray-600 dark:text-gray-300" />
             <input
               type="text"
               value={navbarSearchQuery}
               onChange={handleNavbarSearchChange}
               onKeyDown={handleNavbarSearchKeyDown}
               placeholder="Search news..."
-              className="w-full bg-gray-100 dark:bg-gray-400/30 dark:text-gray-300 py-2 pl-10 rounded-full focus:outline-none"
+              className="tablet-nav-search"
             />
           </div>
         </div>
@@ -174,28 +177,31 @@ const Navbar = () => {
           
           {/* Desktop search for lg+ */}
           <div className="hidden lg:flex relative mr-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
+            <Search className="absolute-center text-gray-300" />
             <input
               type="text"
               value={navbarSearchQuery}
               onChange={handleNavbarSearchChange}
               onKeyDown={handleNavbarSearchKeyDown}
               placeholder="Search news..."
-              className="w-full bg-gray-100 dark:bg-gray-400/30 dark:text-gray-200 py-2 pl-10 rounded-full focus:outline-none"
+              className="desktop-nav-search"
             />
           </div>
 
           {/* Theme toggle */}
-          <button onClick={toggleTheme} className="text-gray-700 dark:text-gray-200">
+          {/* Updated with btn-icon class */}
+          <button onClick={toggleTheme} className="btn-icon">
             {theme === "light" ? <Moon /> : <Sun />}
           </button>
 
           {/* Bell icon */}
-          <Bell className="cursor-pointer text-gray-700 dark:text-gray-200" />
+          {/* Updated with btn-icon class */}
+          <Bell className="cursor-pointer btn-icon" />
 
           {/* Hamburger menu for mobile & tablet */}
+          {/* Updated with btn-nav class */}
           <button
-            className="md:flex lg:hidden p-2 text-gray-700 dark:text-gray-200"
+            className="md:flex lg:hidden btn-nav"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <X /> : <Menu />}
@@ -207,14 +213,15 @@ const Navbar = () => {
       {searchOpen && (
         <div className="absolute right-4 left-4 md:hidden mt-3 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-300" />
+            <Search className="absolute-center text-gray-600 dark:text-gray-300" />
             <input
               type="text"
               value={navbarSearchQuery}
               onChange={handleNavbarSearchChange}
               onKeyDown={handleNavbarSearchKeyDown}
               placeholder="Search news..."
-              className="w-full bg-gray-200 dark:bg-gray-700 dark:text-gray-100 py-2 pl-10 rounded-full focus:outline-none"
+              // Updated with input-mobile-search class
+              className="input-mobile-search"
               autoFocus
             />
           </div>
@@ -226,37 +233,37 @@ const Navbar = () => {
         <div className="md:flex md:flex-col lg:hidden absolute top-full left-0 w-full mt-0 bg-gray-200 dark:bg-gray-800 rounded-b-lg overflow-hidden z-50">
           <ul className="flex flex-col font-medium text-center divider divide-y divide-gray-300 dark:text-gray-100">
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "All" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "All" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("All")}
             >
               Top Stories
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "World" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "World" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("World")}
             >
               World
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "Politics" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "Politics" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("Politics")}
             >
               Politics
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "Business" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "Business" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("Business")}
             >
               Business
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "Tech" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "Tech" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("Tech")}
             >
               Tech
             </li>
             <li 
-              className={`py-3 cursor-pointer ${selectedCategory === "Culture" ? "text-blue font-semibold" : ""}`}
+              className={`py-3 cursor-pointer ${selectedCategory === "Culture" ? "nav-item-active" : ""}`}
               onClick={() => handleCategoryClick("Culture")}
             >
               Culture

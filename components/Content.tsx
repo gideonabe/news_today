@@ -143,7 +143,7 @@ const Content = () => {
   };
 
   return (
-    <section className="max-w-[90%] md:max-w-[75%] mx-auto mt-8 mb-8 md:mb-18">
+    <section className="container-content">
       {/* Search Input */}
       <div className="relative">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" />
@@ -153,7 +153,7 @@ const Content = () => {
           onChange={handleSearchChange}
           onKeyDown={handleSearchKeyDown}
           placeholder="Search for news, topics..."
-          className="bg-white pl-14 pr-24 py-4 border border-gray-200 shadow-xs rounded-sm w-full text-gray-800"
+          className="input-main-search"
         />
       </div>
 
@@ -163,10 +163,10 @@ const Content = () => {
           <button
             key={cat}
             onClick={() => handleCategoryClick(cat)}
-            className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium border transition ${
+            className={`category-btn ${
               selectedCategory === cat
-                ? "bg-blue text-background dark:text-foreground"
-                : "bg-gray-200/20 text-gray-700 dark:text-gray-200 dark:hover:text-background border-gray-100 hover:bg-gray-200"
+                ? "category-btn--active"
+                : "category-btn--inactive"
             }`}
           >
             {cat}
@@ -223,15 +223,15 @@ const Content = () => {
       {!loading && !error && articles.length > 0 && (
         <div className="w-full space-y-10">
           {/* Featured Article */}
-          <div className="relative h-100 md:h-120 bg-gray-900 text-background dark:text-foreground rounded-lg overflow-hidden hover:shadow-lg transition">
+          <div className="featured-card">
             <img
               src={articles[0].image}
               alt={articles[0].title}
-              className="w-full h-full object-cover opacity-70"
+              className="media-cover opacity-70"
             />
             <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/70"></div>
-            <div className="absolute inset-0 flex flex-col gap-1 md:gap-4 justify-end p-6">
-              <h2 className="text-3xl md:text-5xl font-bold mb-3 md:w-[80%] line-clamp-2 leading-tight">{articles[0].title}</h2>
+            <div className="absolute inset-0 flex flex-col gap-1 md:gap-3 justify-end p-6">
+              <h2 className="featured-article-title">{articles[0].title}</h2>
               <p className=" mb-4 md:w-[80%] line-clamp-2 md:line-clamp-6 leading-7">{articles[0].summary}</p>
               <Link
                 href={`/article/${articles[0].id}?${
@@ -249,7 +249,7 @@ const Content = () => {
           {/* Recent Articles */}
           <div className="flex flex-col gap-4">
             <h1 className="font-semibold text-2xl">Recent Articles</h1>
-            <div className="grid gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3">
+            <div className="grid-articles">
               {articles.slice(1).map((article) => (
                 <Link
                   key={article.id}
@@ -264,7 +264,7 @@ const Content = () => {
                       <img
                         src={article.image}
                         alt={article.title}
-                        className="w-full h-40 md:h-48 object-cover rounded-lg group-hover:rounded-b-none transition-all duration-300"
+                        className="img-article-grid"
                       />
                       <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/70 opacity-0 group-hover:opacity-70 transition-opacity rounded-t-lg"></div>
                       <div className="absolute inset-0 flex items-center justify-center">
