@@ -147,7 +147,7 @@ const ArticlePage = () => {
   // Actual article page rendering
   return (
     <section>
-      <Suspense fallback={<div className="h-16" />}>
+      <Suspense fallback={<div className="pb-3 pt-3 nav-border" />}>
         <Navbar2 />
       </Suspense>
 
